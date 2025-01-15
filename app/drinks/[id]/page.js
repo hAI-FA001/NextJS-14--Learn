@@ -3,7 +3,7 @@ const SingleDrinkPage = async ({ params }) => {
 
   return (
     <div>
-      <h1 className="text-7xl">{(await params).id}</h1>
+      <h1 className="text-7xl">Drink ID - {(await params).id}</h1>
     </div>
   )
 }
