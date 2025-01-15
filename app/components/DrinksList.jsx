@@ -2,18 +2,22 @@ import Link from 'next/link'
 
 const DrinksList = ({ drinks }) => {
   return (
-    <div>
+    <ul className="menu menu-vertical pl-0">
       {drinks.map((drink) => (
-        <Link key={drink.idDrink} href={`/drinks/${drink.idDrink}`}>
-          <h1 className="text-xl">{drink.strDrink}</h1>
-          <h2 className="text-xs">
-            {drink.strCategory} | {drink.strAlcoholic} | {drink.strGlass}
-          </h2>
-          <p className="text-md">{drink.strInstructions}</p>
-          <img src={drink.strImageSource} alt={drink.strDrink} />
-        </Link>
+        <li key={drink.idDrink}>
+          <Link
+            href={`/drinks/${drink.idDrink}`}
+            className="text-xl font-medium"
+          >
+            <h1 className="text-xl w-32">{drink.strDrink}</h1>
+            <h2 className="text-xs w-16">{drink.strCategory}</h2>
+            <br />
+            <p className="text-sm truncate min-w-96">{drink.strInstructions}</p>
+            <img src={drink.strImageSource} alt={drink.strDrink} />
+          </Link>
+        </li>
       ))}
-    </div>
+    </ul>
   )
 }
 
