@@ -1,3 +1,5 @@
+import Link from 'next/link'
+
 const url = 'https://www.thecocktaildb.com/api/json/v1/1/lookup.php'
 
 const SingleDrinkPage = async ({ params }) => {
@@ -10,6 +12,9 @@ const SingleDrinkPage = async ({ params }) => {
 
   return (
     <div>
+      <Link href="/drinks" className="btn btn-primary mt-8 mb-12">
+        Go Back
+      </Link>
       <h1 className="text-xl w-32">{drink.strDrink}</h1>
       <h2 className="text-xs w-16">{drink.strCategory}</h2>
       <br />
