@@ -22,13 +22,20 @@ const SingleDrinkPage = async ({ params }) => {
       <h1 className="text-xl w-32">{drink.strDrink}</h1>
       <h2 className="text-xs w-16">{drink.strCategory}</h2>
       <br />
-      <Image
+      {/* <Image
         src={drinkImg}
         className="w-48 h-48 rounded-lg"
         alt={drink.strDrink}
+      /> */}
+      <Image
+        src={drink.strDrinkThumb}
+        alt={drink.strDrink}
+        width={300}
+        height={300}
+        className="w-48 h-48 rounded-lg shadow-lg mb-4"
+        priority
       />
       <p className="text-sm truncate min-w-96">{drink.strInstructions}</p>
-      {/* <img src={drink.strDrinkThumb} alt={drink.strDrink} /> */}
       {/* <img src={drinkImg.src} alt="" /> */}{' '}
       {/* very slow + layout shifting */}
     </div>
