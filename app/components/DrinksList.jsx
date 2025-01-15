@@ -3,7 +3,7 @@ import Link from 'next/link'
 
 const DrinksList = ({ drinks }) => {
   return (
-    <ul className="menu menu-vertical pl-0 w-fit">
+    <ul className="grid sm:grid-cols-2 md:grid-cols-3 gap-6 mt-6">
       {drinks.map((drink) => (
         <li key={drink.idDrink}>
           <Link
@@ -14,13 +14,15 @@ const DrinksList = ({ drinks }) => {
             <h2 className="text-xs w-16">{drink.strCategory}</h2>
             <br />
             <p className="text-sm truncate">{drink.strInstructions}</p>
-            <Image
-              src={drink.strDrinkThumb}
-              alt={drink.strDrink}
-              className="rounded-md object-cover opacity-50"
-              fill
-              sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw"
-            />
+            <div className="relative h-48 mb-4">
+              <Image
+                src={drink.strDrinkThumb}
+                alt={drink.strDrink}
+                className="rounded-md object-cover"
+                fill
+                sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw"
+              />
+            </div>
           </Link>
         </li>
       ))}
