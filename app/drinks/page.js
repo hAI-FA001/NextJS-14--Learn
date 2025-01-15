@@ -1,7 +1,7 @@
 const url = 'https://www.thecocktaildb.com/api/json/v1/1/search.php?f=a'
 
 const addDelay = async () =>
-  await new Promise((resolve) => setTimeout(resolve, 500))
+  await new Promise((resolve) => setTimeout(resolve, 1000))
 
 const throwError = () => {
   throw new Error('Failed to fetch')
@@ -9,7 +9,7 @@ const throwError = () => {
 
 const DrinksPage = async () => {
   await addDelay()
-  throwError()
+  // throwError()
 
   const data = await fetch(url).then((res) => res.json())
   console.log(data)
