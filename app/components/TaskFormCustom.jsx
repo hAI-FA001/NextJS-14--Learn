@@ -28,7 +28,7 @@ const TaskFormCustom = () => {
   useEffect(() => {
     if (state.message === 'success') {
       toast.success(state.message)
-    } else {
+    } else if (state.message) {
       toast.error(state.message)
     }
   }, [state])
