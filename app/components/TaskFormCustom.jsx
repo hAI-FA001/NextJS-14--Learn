@@ -1,8 +1,9 @@
 'use client'
 
 import { createTaskCustom } from '@/utils/actions'
-import { useActionState } from 'react'
+import { useActionState, useEffect } from 'react'
 import { useFormStatus } from 'react-dom'
+import toast from 'react-hot-toast'
 
 const SubmitBtn = () => {
   const { pending } = useFormStatus()
@@ -24,9 +25,17 @@ const TaskFormCustom = () => {
   // useFormState renamed to useActionState
   const [state, formAction] = useActionState(createTaskCustom, initialState)
 
+  useEffect(() => {
+    if (state.message === 'success') {
+      toast.success(state.message)
+    } else {
+      toast.error(state.message)
+    }
+  }, [state])
+
   return (
     <form action={formAction}>
-      {state.message && <p className="mb-2 capitalize">{state.message}</p>}
+      {/* {state.message && <p className="mb-2 capitalize">{state.message}</p>} */}
       <div className="join w-full">
         <input
           type="text"
