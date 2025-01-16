@@ -1,8 +1,8 @@
-import { createTask } from '@/utils/actions'
+import { createTaskCustom } from '@/utils/actions'
 
-const TaskForm = async () => {
+const TaskFormCustom = async () => {
   return (
-    <form action={createTask}>
+    <form action={createTaskCustom}>
       <div className="join w-full">
         <input
           type="text"
@@ -18,4 +18,4 @@ const TaskForm = async () => {
     </form>
   )
 }
-export default TaskForm
+export default TaskFormCustom
