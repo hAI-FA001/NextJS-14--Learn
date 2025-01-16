@@ -62,17 +62,21 @@ export const deleteTask = async (prevState, formData) => {
 export const getTaskWithID = async (id) =>
   await prisma.task.findUnique({ where: { id } })
 
-export const updateTask = async (formData) => {
+export const updateTask = async (prevState, formData) => {
   await addDelay()
 
   const id = formData.get('id')
   const content = formData.get('content')
   const completed = formData.get('completed')
 
-  await prisma.task.update({
-    where: { id },
-    data: { content, completed: completed === 'on' },
-  })
+  try {
+    await prisma.task.update({
+      where: { id },
+      data: { content, completed: completed === 'on' },
+    })
 
-  redirect('/tasks')
+    redirect('/tasks')
+  } catch (error) {
+    return { message: 'error' }
+  }
 }
