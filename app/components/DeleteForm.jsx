@@ -1,8 +1,9 @@
 'use client'
 
 import { deleteTask } from '@/utils/actions'
-import { useActionState } from 'react'
+import { useActionState, useEffect } from 'react'
 import { useFormStatus } from 'react-dom'
+import toast from 'react-hot-toast'
 
 const SubmitBtn = () => {
   const { pending } = useFormStatus()
@@ -19,6 +20,16 @@ const initialState = { message: null }
 
 const DeleteForm = ({ id }) => {
   const [state, formAction] = useActionState(deleteTask, initialState)
+
+  useEffect(() => {
+    if (state.message) {
+      if (state.message === 'success') {
+        toast.success('Deleted Task')
+      } else {
+        toast.error(state.message)
+      }
+    }
+  }, [state])
 
   return (
     <form action={formAction}>
