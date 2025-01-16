@@ -1,13 +1,9 @@
-import prisma from '@/utils/db'
 import Link from 'next/link'
 import DeleteForm from './DeleteForm'
-
-const deleteTask = async (id) => {
-  await prisma.task.delete({ where: { id } })
-}
+import { getAllTasks } from '@/utils/actions'
 
 const TaskList = async () => {
-  const tasks = await prisma.task.findMany()
+  const tasks = await getAllTasks()
 
   return (
     <div>
