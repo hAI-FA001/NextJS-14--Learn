@@ -67,16 +67,30 @@ export const updateTask = async (prevState, formData) => {
 
   const id = formData.get('id')
   const content = formData.get('content')
-  const completed = formData.get('completed')
+  const completed = formData.get('completed') === 'on'
 
+  const Task = z.object({
+    content: z.string().min(5),
+    completed: z.boolean(),
+  })
+
+  let doRedirect = false
   try {
+    Task.parse({ content, completed })
+
     await prisma.task.update({
       where: { id },
-      data: { content, completed: completed === 'on' },
+      data: { content, completed: completed },
     })
-
-    redirect('/tasks')
+    doRedirect = true
+    return { message: 'success' }
   } catch (error) {
+    console.log(error)
     return { message: 'error' }
+  } finally {
+    // must move here
+    if (doRedirect) {
+      redirect('/tasks')
+    }
   }
 }
