@@ -5,6 +5,9 @@ import prisma from './db'
 import { z, ZodError } from 'zod'
 import { redirect } from 'next/navigation'
 
+const addDelay = async () =>
+  await new Promise((resolve) => setTimeout(resolve, 500))
+
 export const getAllTasks = async () =>
   await prisma.task.findMany({ orderBy: { createdAt: 'desc' } })
 
@@ -18,8 +21,6 @@ export const createTask = async (formData) => {
 }
 
 export const createTaskCustom = async (prevState, formData) => {
-  const addDelay = async () =>
-    await new Promise((resolve) => setTimeout(resolve, 500))
   await addDelay()
 
   const Task = z.object({
@@ -45,6 +46,7 @@ export const createTaskCustom = async (prevState, formData) => {
 }
 
 export const deleteTask = async (formData) => {
+  await addDelay()
   const id = formData.get('id')
   await prisma.task.delete({ where: { id } })
   revalidatePath('/tasks')
