@@ -1,6 +1,7 @@
 'use client'
 
 import { createTaskCustom } from '@/utils/actions'
+import { useActionState } from 'react'
 import { useFormStatus } from 'react-dom'
 
 const SubmitBtn = () => {
@@ -17,9 +18,15 @@ const SubmitBtn = () => {
   )
 }
 
-const TaskFormCustom = async () => {
+const initialState = { message: null }
+
+const TaskFormCustom = () => {
+  // useFormState renamed to useActionState
+  const [state, formAction] = useActionState(createTaskCustom, initialState)
+
   return (
-    <form action={createTaskCustom}>
+    <form action={formAction}>
+      {state.message && <p className="mb-2 capitalize">{state.message}</p>}
       <div className="join w-full">
         <input
           type="text"
