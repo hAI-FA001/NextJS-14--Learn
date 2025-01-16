@@ -1,4 +1,21 @@
+'use client'
+
 import { createTaskCustom } from '@/utils/actions'
+import { useFormStatus } from 'react-dom'
+
+const SubmitBtn = () => {
+  const { pending } = useFormStatus()
+
+  return (
+    <button
+      type="submit"
+      className="btn btn-primary join-item"
+      disabled={pending}
+    >
+      {pending ? 'Working...' : 'Create'}
+    </button>
+  )
+}
 
 const TaskFormCustom = async () => {
   return (
@@ -11,9 +28,7 @@ const TaskFormCustom = async () => {
           className="input input-bordered join-item w-full"
           required
         />
-        <button type="submit" className="btn btn-primary join-item">
-          Create
-        </button>
+        <SubmitBtn />
       </div>
     </form>
   )

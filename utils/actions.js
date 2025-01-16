@@ -17,6 +17,10 @@ export const createTask = async (formData) => {
 }
 
 export const createTaskCustom = async (formData) => {
+  const addDelay = async () =>
+    await new Promise((resolve) => setTimeout(resolve, 1000))
+  await addDelay()
+
   const content = formData.get('content')
   console.log('From Server Action: ', content)
 
