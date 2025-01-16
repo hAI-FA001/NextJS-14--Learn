@@ -6,7 +6,6 @@ const links = [
   'contact',
   'drinks',
   'prisma-example',
-  'query',
   'tasks',
 ]
 
