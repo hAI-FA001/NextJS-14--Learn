@@ -45,12 +45,18 @@ export const createTaskCustom = async (prevState, formData) => {
   }
 }
 
-export const deleteTask = async (formData) => {
+export const deleteTask = async (prevState, formData) => {
   await addDelay()
 
   const id = formData.get('id')
-  await prisma.task.delete({ where: { id } })
-  revalidatePath('/tasks')
+  try {
+    // throw new Error("Testing error handler")
+    await prisma.task.delete({ where: { id } })
+    revalidatePath('/tasks')
+    return { message: 'success' }
+  } catch (error) {
+    return { message: 'error' }
+  }
 }
 
 export const getTaskWithID = async (id) =>
