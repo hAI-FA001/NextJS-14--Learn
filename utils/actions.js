@@ -86,6 +86,9 @@ export const updateTask = async (prevState, formData) => {
     return { message: 'success' }
   } catch (error) {
     console.log(error)
+    if (error instanceof ZodError) {
+      return { message: error.issues[0].message }
+    }
     return { message: 'error' }
   } finally {
     // must move here

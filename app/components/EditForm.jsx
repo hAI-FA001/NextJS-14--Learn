@@ -1,8 +1,9 @@
 'use client'
 
 import { updateTask } from '@/utils/actions'
-import { useActionState } from 'react'
+import { useActionState, useEffect } from 'react'
 import { useFormStatus } from 'react-dom'
+import toast from 'react-hot-toast'
 
 const SubmitBtn = () => {
   const { pending } = useFormStatus()
@@ -23,12 +24,21 @@ const initialState = { message: null }
 const EditForm = ({ task }) => {
   const [state, formAction] = useActionState(updateTask, initialState)
 
+  useEffect(() => {
+    if (state.message) {
+      if (state.message === 'success') {
+        toast.success('Updated Task')
+      } else {
+        toast.error(state.message)
+      }
+    }
+  }, [state])
+
   return (
     <form
       action={formAction}
       className="max-w-sm p-12 border border-base-300 rounded-lg"
     >
-      {state.message}
       <input type="hidden" name="id" value={task.id} />
 
       <div className="form-control">
