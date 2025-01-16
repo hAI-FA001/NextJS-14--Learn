@@ -2,6 +2,7 @@
 
 import { revalidatePath } from 'next/cache'
 import prisma from './db'
+import { z, ZodError } from 'zod'
 import { redirect } from 'next/navigation'
 
 export const getAllTasks = async () =>
@@ -18,18 +19,27 @@ export const createTask = async (formData) => {
 
 export const createTaskCustom = async (prevState, formData) => {
   const addDelay = async () =>
-    await new Promise((resolve) => setTimeout(resolve, 1000))
+    await new Promise((resolve) => setTimeout(resolve, 500))
   await addDelay()
+
+  const Task = z.object({
+    content: z.string().min(5),
+  })
 
   const content = formData.get('content')
   console.log('From Server Action: ', content)
 
   try {
+    Task.parse({ content })
     await prisma.task.create({ data: { content } })
     revalidatePath('/tasks')
 
     return { message: 'success' }
   } catch (error) {
+    // console.log(error)
+    if (error instanceof ZodError) {
+      return { message: error.issues[0].message }
+    }
     return { message: 'error' }
   }
 }
