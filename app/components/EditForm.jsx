@@ -1,6 +1,21 @@
 'use client'
 
 import { updateTask } from '@/utils/actions'
+import { useFormStatus } from 'react-dom'
+
+const SubmitBtn = () => {
+  const { pending } = useFormStatus()
+
+  return (
+    <button
+      type="submit"
+      className="btn btn-primary btn-block btn-sm"
+      disabled={pending}
+    >
+      {pending ? 'Working...' : 'Update'}
+    </button>
+  )
+}
 
 const EditForm = ({ task }) => {
   return (
@@ -31,9 +46,7 @@ const EditForm = ({ task }) => {
         required
       />
 
-      <button type="submit" className="btn btn-primary btn-block btn-sm">
-        Update
-      </button>
+      <SubmitBtn />
     </form>
   )
 }

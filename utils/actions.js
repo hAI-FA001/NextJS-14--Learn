@@ -47,6 +47,7 @@ export const createTaskCustom = async (prevState, formData) => {
 
 export const deleteTask = async (formData) => {
   await addDelay()
+
   const id = formData.get('id')
   await prisma.task.delete({ where: { id } })
   revalidatePath('/tasks')
@@ -56,6 +57,8 @@ export const getTaskWithID = async (id) =>
   await prisma.task.findUnique({ where: { id } })
 
 export const updateTask = async (formData) => {
+  await addDelay()
+
   const id = formData.get('id')
   const content = formData.get('content')
   const completed = formData.get('completed')
